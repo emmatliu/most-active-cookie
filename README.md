@@ -1,6 +1,6 @@
-Program takes two arguments -- file name, a positional argument, and timestamp in UTC, specified with '-d' option.  Run as below:
+Program takes two arguments -- file name, a positional argument, and timestamp in UTC, specified with '-d' option.  Make file executable with ```chmod +x most_active_cookie.py```; then, run as below:
 
-```python3 most_active_cookie.py test.csv -d 2019-12-09```
+```./most_active_cookie.py test.csv -d 2019-12-09```
 
 Program will then output the most active cookie(s) from the specified date, where most active is defined as the cookie that appears the most times in the csv log file.
 
