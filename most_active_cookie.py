@@ -48,17 +48,23 @@ def get_args(input_args):
     arg_parser.add_argument("file") # file option
     arg_parser.add_argument("-d") # date option
 
-    args = arg_parser.parse_args(input_args)
+    return arg_parser.parse_args(input_args)
 
-    return args.file, args.d
+def get_output(cookies):
+    """
+    Prints each cookie in cookies on a new line.
+
+    cookies -- list of cookies from parse_csv
+    """
+    print('\n'.join(cookies))
 
 def main():
     """
     Main function calling get_args and parse_csv to get the max count cookies.
     """
-    filename, date = get_args(sys.argv[1:])
-    res = parse_csv(filename, date)
-    print('\n'.join(res)) # prints each cookie on new line
+    args = get_args(sys.argv[1:])
+    cookies = parse_csv(args.file, args.d)
+    get_output(cookies)
 
 if __name__ == "__main__":
     main()
