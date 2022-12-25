@@ -1,48 +1,64 @@
 #!/usr/bin/env python3
 
+"""
+sys - get arguments
+argparse - parse arguments
+"""
 import sys
 import argparse
 
-# Function to parse csv in format required for parseCookies
+def parse_csv(filename, date):
+    """
+    Parse the csv file and create a count dictionary of cookies with timestamp on specified day
 
-def parseCsv(filename, date):
-    countDict = {}
+    filename -- csv file name
+    date -- the specified date argument
+    """
+    count_dict = {}
 
-    with open(filename) as file:
+    with open(filename, encoding='utf-8') as file:
         for line in file:
             pair = line.split(',')
 
+            # get cookie and processed date from timestamp portion
             cookie = pair[0]
-            ts = pair[1][:pair[1].find('T')] if pair[1].find('T') != -1 else ""
+            timestamp_date = pair[1][:pair[1].find('T')] if pair[1].find('T') != -1 else ""
 
-            if not ts or ts != date:
+            # invalid or not a date we want
+            if not timestamp_date or timestamp_date != date:
                 continue
 
-            if cookie in countDict:
-                countDict[cookie] += 1
+            # update count dictionary
+            if cookie in count_dict:
+                count_dict[cookie] += 1
             else:
-                countDict[cookie] = 1
+                count_dict[cookie] = 1
 
-    return [cookie for cookie, count in countDict.items() if count == max(countDict.values())]
+    # list of most active cookies
+    return [cookie for cookie, count in count_dict.items() if count == max(count_dict.values())]
 
-# Function to get command line arguments
+def get_args(input_args):
+    """
+    Get arguments from the command line.
 
-def parseArgs(inputArgs):
-    argParser = argparse.ArgumentParser()
+    input_args -- command line arguments
+    """
+    arg_parser = argparse.ArgumentParser()
 
-    argParser.add_argument("file") # file
-    argParser.add_argument("-d") # date
+    arg_parser.add_argument("file") # file option
+    arg_parser.add_argument("-d") # date option
 
-    args = argParser.parse_args(inputArgs)
+    args = arg_parser.parse_args(input_args)
 
     return args.file, args.d
 
-# Main function
-
 def main():
-    filename, date = parseArgs(sys.argv[1:])
-    res = parseCsv(filename, date)
-    print('\n'.join(res))
+    """
+    Main function calling get_args and parse_csv to get the max count cookies.
+    """
+    filename, date = get_args(sys.argv[1:])
+    res = parse_csv(filename, date)
+    print('\n'.join(res)) # prints each cookie on new line
 
 if __name__ == "__main__":
     main()
