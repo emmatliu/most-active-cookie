@@ -17,17 +17,17 @@ class TestMostActiveCookie(unittest.TestCase):
         """
         Test the parse_csv function.
         """
-        self.assertEqual(most_active_cookie.parse_csv('test.txt','2018-12-09'),['AtY0laUfhglK3lC7'])
-        self.assertEqual(most_active_cookie.parse_csv('test.txt','2018-12-08'),['SAZuXPGUrfbcn5UA','4sMM2LxV07bPJzwf','fbcn5UAVanZf6UtG'])
-        self.assertEqual(most_active_cookie.parse_csv('test.txt','2018-12-07'),['4sMM2LxV07bPJzwf'])
-        self.assertEqual(most_active_cookie.parse_csv('test.txt','2019-12-09'),[]) # Should return none if date's not there
+        self.assertEqual(most_active_cookie.parse_csv('test.csv','2018-12-09'),['AtY0laUfhglK3lC7'])
+        self.assertEqual(most_active_cookie.parse_csv('test.csv','2018-12-08'),['SAZuXPGUrfbcn5UA','4sMM2LxV07bPJzwf','fbcn5UAVanZf6UtG'])
+        self.assertEqual(most_active_cookie.parse_csv('test.csv','2018-12-07'),['4sMM2LxV07bPJzwf'])
+        self.assertEqual(most_active_cookie.parse_csv('test.csv','2019-12-09'),[]) # Should return none if date's not there
 
     def test_get_args(self):
         """
         Test the argparser itself
         """
-        args = most_active_cookie.get_args(['test.txt','-d','2018-12-09'])
-        self.assertTrue(args.file == 'test.txt')
+        args = most_active_cookie.get_args(['test.csv','-d','2018-12-09'])
+        self.assertTrue(args.file == 'test.csv')
         self.assertTrue(args.d == '2018-12-09')
     
     def redir_output(self,test_cookies,expected_output):
@@ -54,7 +54,7 @@ class TestMostActiveCookie(unittest.TestCase):
         output_dictionary = {
             0: 'SAZuXPGUrfbcn5UA\n4sMM2LxV07bPJzwf\nfbcn5UAVanZf6UtG\n',
             1: 'AtY0laUfhglK3lC7\n',
-            2: '\n'
+            2: ''
         }
 
         for i in range(0,n_tests):

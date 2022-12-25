@@ -56,7 +56,8 @@ def get_output(cookies):
 
     cookies -- list of cookies from parse_csv
     """
-    print('\n'.join(cookies))
+    if cookies: # If no cookies, we don't want a newline from the print
+        print('\n'.join(cookies))
 
 def main():
     """
